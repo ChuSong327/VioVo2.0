@@ -21,10 +21,3 @@ yarn-debug.log*
 yarn-error.log*
 
 # redux file
-/src/store
-/src/reducers
-/src/actions
-/src/config
-/src/components/page-homepage/PageHomepageContainer.js
-/src/components/page-searchresult/PageSearchResultContainer.js
-/src/components/page-videoplayer/PageVideoPlayerContainer.js
