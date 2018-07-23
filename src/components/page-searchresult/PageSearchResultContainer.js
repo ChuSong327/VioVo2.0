@@ -5,6 +5,7 @@ import * as videoActions from "../../actions/videoActions";
 export const mapStateToProps = state => {
     return {
         searchResult: state.searchResultReducer.searchResult,
+        // nextPageToken: state.searchResultReducer.nextPageToken
     }
 };
 

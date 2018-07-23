@@ -32,9 +32,8 @@ const styles = theme => ({
         boxShadow: "none"
     },
     media: {
-        height: "10vw",
-        width: "50%",
-        padding:0,
+        height: "100%",
+        paddingLeft: "33%",
         marginRight: theme.spacing.unit * 2
     },
     cardContent: {
@@ -72,7 +71,6 @@ class Search extends Component {
 
     handleVideoClick(event){
         const videoId = event.currentTarget.id;
-        console.log("this is the videoId: ", videoId);
         localStorage.setItem("videoId", videoId);
     };
 
@@ -83,6 +81,7 @@ class Search extends Component {
         return(
             <div className={ classes.root } id="Search">
                 {searchResult.map((video, index) => {
+                    console.log(video.snippet)
                     const { url } = video.snippet.thumbnails.medium;
                     const { title } = video.snippet;
                     const { channelTitle } = video.snippet;

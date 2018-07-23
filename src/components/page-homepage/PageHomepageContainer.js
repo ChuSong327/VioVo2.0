@@ -5,7 +5,7 @@ import * as videoActions from "../../actions/videoActions";
 export const mapStateToProps = globalState => {
     return {
         galleryVideos: globalState.galleryVideosReducer.galleryVideos,
-        nextPageToken: globalState.galleryVideosReducer.nextPageToken
+        nextPageToken: globalState.galleryVideosReducer.nextPageToken,
     }
 };
 
@@ -14,8 +14,8 @@ export const mapDispatchToProps = dispatch => {
         getMostPopularVideos: (nextPageToken) => {
             return dispatch(videoActions.getMostPopularVideos(nextPageToken));
         },
-        fetchYoutube: keyword => {
-            return dispatch(videoActions.fetchYoutube(keyword));
+        fetchYoutube: (keyword, pageToken) => {
+            return dispatch(videoActions.fetchYoutube(keyword, pageToken));
         }
     }
 };

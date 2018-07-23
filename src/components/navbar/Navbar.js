@@ -70,6 +70,7 @@ class Navbar extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleSearchClick = this.handleSearchClick.bind(this);
         this.handleSearchInput = this.handleSearchInput.bind(this);
+        // this.handleEnterKeyUp = this.handleEnterKeyUp.bind(this);
     };
 
     handleClick(event) {
@@ -86,16 +87,25 @@ class Navbar extends Component {
         })
     };
 
-    handleSearchClick(event){
+    handleSearchClick(){
         const keyword = this.state.searchInput;
         this.props.state.fetchYoutube(keyword);
         localStorage.setItem("searchKeyword", keyword);
     };
 
+    // handleEnterKeyUp(event){
+    //     console.log(event.keyCode)
+    //     if(event.keyCode === 13) {
+    //         const keyword = this.state.searchInput;
+    //         this.props.state.fetchYoutube(keyword);
+    //         localStorage.setItem("searchKeyword", keyword)
+    //         this.props.state.history.push(`/search/${ this.state.searchInput }`);
+    //     }
+    // };
+
     render() {
         const { classes } = this.props;
         const { anchorEl } = this.state;
-
         return (
             <div className={ classes.root }>
                 <AppBar position="static" color="primary">
@@ -107,6 +117,7 @@ class Navbar extends Component {
                             <TextField 
                                 id="search-input" 
                                 onChange={ this.handleSearchInput }
+                                // onKeyUp={ this.handleEnterKeyUp }
                                 placeholder="Search"
                                 className={ classes.textField }
                                 InputProps={{

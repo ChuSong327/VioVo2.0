@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { convertNumbers } from "../../utils/numConverter";
@@ -7,6 +7,7 @@ import {
     Card, 
     CardContent,
     CardMedia,
+    CircularProgress
 } from "@material-ui/core";
 import Moment from "react-moment";
 
@@ -16,7 +17,8 @@ const styles = theme => ({
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "center",
-        overflow: "scroll"
+        overflow: "scroll",
+        marginBottom: theme.spacing.unit * 2
     },
     card : {
         width: 260,
@@ -65,8 +67,14 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit * 0.3,
         marginRight: theme.spacing.unit * 0.3,
         marginBottom: theme.spacing.unit * 0.3
+    },
+    loadingIcon: {
+        display: "block",
+        marginLeft: theme.spacing.unit * 50,
+        marginTop: theme.spacing.unit * 2
     }
 });
+
 
 class Gallery extends Component {
     constructor(props){
@@ -85,8 +93,9 @@ class Gallery extends Component {
         if (galleryClientHeight + galleryScrollTop === galleryScrollHeight) {
             this.props.state.getMostPopularVideos(pageToken);
         }
-    };
 
+    };
+   
     handleVideoClick(event){
         const videoId = event.currentTarget.id;
         localStorage.setItem("videoId", videoId);
@@ -102,7 +111,6 @@ class Gallery extends Component {
                 id="Gallery" 
                 onScroll={ this.handleGalleryScroll } 
                 style={{height: "720px"}}>
-
                 {videos.map((video, index) => {
                     const { url } = video.snippet.thumbnails.medium;
                     const { title, channelTitle, publishedAt } = video.snippet;

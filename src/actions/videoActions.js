@@ -4,7 +4,7 @@ export const updateGalleryVideos = galleryVideos => {
     return {
         type: ytUtils.GET_GALLERY_VIDEOS,
         galleryVideos: galleryVideos.items,
-        nextPageToken: galleryVideos.nextPageToken
+        nextPageToken: galleryVideos.nextPageToken,
     }
 };
 
@@ -18,7 +18,8 @@ export const updateCurrentVideo = currentVideo => {
 export const updateSearchResult = searchResult => {
     return {
         type: ytUtils.GET_SEARCH_RESULT,
-        searchResult,
+        searchResult: searchResult.items,
+        nextPageToken: searchResult.nextPageToken
     }
 };
 
@@ -59,6 +60,7 @@ export const fetchYoutube = keyword => {
     return (dispatch) => {
         ytUtils.fetchYoutube(keyword).then(searchResult => {
             dispatch(updateSearchResult(searchResult));
+            // console.log(searchResult)
             return searchResult;
         })
     }

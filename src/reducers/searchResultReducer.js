@@ -10,9 +10,11 @@ const searchResultReducer = (
 ) => {
     Object.freeze(state);
     switch (action.type) {
+       
         case ytUtil.GET_SEARCH_RESULT: 
-            const nextPageToken = action.searchResult.nextPageToken;
-            const searchResult = action.searchResult.items;
+       
+            const nextPageToken = action.nextPageToken;
+            const searchResult = action.searchResult;
             const newSearchResultState = Object.assign({}, state, { searchResult: searchResult, nextPageToken: nextPageToken });
             return newSearchResultState;
         default:
