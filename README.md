@@ -24,7 +24,7 @@ The app is deployed to Heroku.
 * Axios
 * Material UI
 
-##### Notice
+#### Notice
 API key is hidden.
 
 
