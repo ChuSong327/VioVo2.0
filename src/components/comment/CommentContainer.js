@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import PageVideoPlayer from "./PageVideoPlayer";
+import Comment from "./Comment";
 
 import * as videoActions from "../../actions/videoActions";
 
@@ -20,13 +20,7 @@ export const mapDispatchToProps = dispatch => {
         fetchVideoComment: (videoId, nextPageToken) => {
             return dispatch(videoActions.fetchVideoComment(videoId, nextPageToken));
         },
-        getRelatedVideo: videoId => {
-            return dispatch(videoActions.getRelatedVideo(videoId));
-        },
-        fetchYoutube: keyword => {
-            return dispatch(videoActions.fetchYoutube(keyword));
-        }
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageVideoPlayer);
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);

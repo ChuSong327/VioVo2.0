@@ -23,7 +23,8 @@ const styles = theme => ({
         height: "100px",
         "&:hover": {
             cursor: "pointer",
-            boxShadow: "1px 2px 3px #ddd"
+            boxShadow: "1px 2px 3px #ddd",
+            transform:"translateY(-1px)"
         }
     },
     image: {
@@ -71,14 +72,13 @@ class VideoList extends Component {
 
     handleVideoClick(event){
         const videoId = event.currentTarget.id;
-        this.props.state.getVideoInfo(videoId);
-        this.props.state.getRelatedVideo(videoId);
-        this.props.state.fetchVideoComment(videoId);
-        localStorage.setItem("videoId", videoId);
+        this.props.getVideoInfo(videoId);
+        this.props.getRelatedVideo(videoId);
+        this.props.fetchVideoComment(videoId);
     };
 
     render(){
-        const { relatedVideos } = this.props.state;
+        const { relatedVideos } = this.props;
         const { classes } = this.props;
         return(
             <div className={ classes.root }>

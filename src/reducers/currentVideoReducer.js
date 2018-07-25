@@ -10,7 +10,7 @@ const currentVideoReducer = (
     Object.freeze(state);
     switch (action.type) {  
         case ytUtil.GET_CURRENT_VIDEO: 
-            const currentVideo = action.currentVideo.items;
+            const currentVideo = action.currentVideo;
             const newCurrentVideoState = Object.assign({}, state, { currentVideo: currentVideo });
             return newCurrentVideoState;
         default:

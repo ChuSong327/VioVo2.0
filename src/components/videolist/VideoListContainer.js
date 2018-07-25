@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import PageVideoPlayer from "./PageVideoPlayer";
+import VideoList from "./VideoList";
 
 import * as videoActions from "../../actions/videoActions";
 
@@ -29,4 +29,4 @@ export const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageVideoPlayer);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoList);

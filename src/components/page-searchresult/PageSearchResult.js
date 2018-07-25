@@ -1,29 +1,26 @@
 import React, { Component } from "react";
-import Navbar from "../navbar/Navbar";
-import SearchList from "../search-list/SearchList";
-import { LinearProgress } from "@material-ui/core";
+import NavbarContainer from "../navbar/NavbarContainer";
+import SearchListContainer from "../search-list/SearchListContainer";
 
 class PageSearchResult extends Component {
     componentDidMount(){
-        const keyword = localStorage.searchKeyword;
+        let keyword = this.props.match.params.keyword;
         this.props.fetchYoutube(keyword);
     };
 
-    render(){
-        if(!this.props.searchResult.length) {
-            return (
-                <div>
-                    <LinearProgress />
-                </div>
-            )
-        } else if(this.props.searchResult.length) {
-            return(
-                <div>
-                    <Navbar state={ this.props }/>
-                    <SearchList state={ this.props }/>
-                </div>
-            );
+    componentDidUpdate(prevProps){
+        if(this.props.match.params.keyword !== prevProps.match.params.keyword) {
+            this.props.fetchYoutube(this.props.match.params.keyword)
         }
+    };
+
+    render(){
+        return(
+            <div>
+                <NavbarContainer/>
+                <SearchListContainer/>
+            </div>
+        )
     }
 };
 

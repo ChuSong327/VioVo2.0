@@ -5,7 +5,9 @@ import {
     Card,
     CardMedia,
     CardContent,
-    Typography
+    Typography,
+    Button,
+    LinearProgress
 } from "@material-ui/core";
 import {
     ThumbUp,
@@ -18,12 +20,27 @@ const styles = theme => ({
         display: "flex",
         flexDirection: "column",
     },
+    commentInfo:{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: theme.spacing.unit * 2.5,
+        marginBottom: theme.spacing.unit * 3,
+    },
     commentCount: {
         fontSize: "18px",
         marginLeft: theme.spacing.unit * 2.2,
-        marginTop: theme.spacing.unit * 2.5,
         marginBottom: theme.spacing.unit * 1.5
     }, 
+    button: {
+        marginRight:theme.spacing.unit * 3,
+        backgroundColor: "#FFEBEE",
+        float: "right",
+        "&:hover": {
+            backgroundColor: "#FFCDD2"
+        }
+    },
     card: {
         height: "auto",
         boxShadow: "none",
@@ -85,58 +102,89 @@ const styles = theme => ({
 });
 
 class Comment extends Component {
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(){
+        this.props.fetchVideoComment(this.props.currentVideo[0].id, this.props.nextPageToken);
+    }
+
     render(){
-        const { classes } = this.props;
-        const { commentList } = this.props.state;
-        const { commentCount } = this.props.state.currentVideo[0].statistics;
-        return (
-            <div className={ classes.root }>
+        const { classes, commentList, currentVideo } = this.props;
+        if(currentVideo.length === 0){ 
+            return(
                 <div>
-                    <Typography className={ classes.commentCount }>
-                        { formatNumbers(commentCount) } Comments
-                    </Typography>
+                     <LinearProgress/>
                 </div>
-                <div>
-                    {commentList.map((comment, index) => {
-                        const authorName = comment.snippet.topLevelComment.snippet.authorDisplayName;
-                        const authorImage = comment.snippet.topLevelComment.snippet.authorProfileImageUrl;
-                        const { publishedAt,likeCount,textDisplay } = comment.snippet.topLevelComment.snippet;
-                        return(
-                            <Card key={ index } className={ classes.card }>
-                                <div>
-                                    <CardMedia
-                                        className={ classes.authorImage }
-                                        image={ authorImage } />
-                                </div>
-                                <div>
-                                    <CardContent>
-                                        <Typography className={ classes.authorName }>
-                                            { authorName } 
-                                        </Typography>
-                                        <Typography className={ classes.publishedAt }>
-                                            <Moment fromNow>{ publishedAt }</Moment>
-                                        </Typography>
-                                    </CardContent>
-                                    <CardContent className={ classes.commentBox}> 
-                                        <Typography className={ classes.commentText }>
-                                            { textDisplay }
-                                        </Typography>
-                                    </CardContent>
-                                    <CardContent className={ classes.commentStat }>
-                                        <ThumbUp className={ classes.likeStyle }></ThumbUp> 
-                                        <Typography className={ classes.likeCount }>
-                                            { convertNumbers(likeCount) }
-                                        </Typography>
-                                        <ThumbDown className={ classes.likeStyle }></ThumbDown>
-                                    </CardContent>
-                                </div>
-                            </Card>
-                        )
-                    })}
+            )}
+        else if(currentVideo.length > 0){
+             const { commentCount } = currentVideo[0].statistics;
+            return (
+                <div 
+                    className={ classes.root } 
+                    id="comment"
+                    onScroll={ this.handleCommentScroll }
+                    style={{height: "720px"}}>
+                    <div className={ classes.commentInfo }>
+                        <Typography className={ classes.commentCount }>
+                            { formatNumbers(commentCount) } Comments
+                        </Typography>
+                        <div>
+                            <Button
+                                variant="contained"
+                                size="small"
+                                onClick={ this.handleClick }
+                                className={ classes.button }>
+                                <Typography style={{color: "#F44336"}}>
+                                    Next Page
+                                </Typography>
+                            </Button>
+                        </div>
+                    </div>
+                    <div>
+                        {commentList.map((comment, index) => {
+                            const authorName = comment.snippet.topLevelComment.snippet.authorDisplayName;
+                            const authorImage = comment.snippet.topLevelComment.snippet.authorProfileImageUrl;
+                            const { publishedAt,likeCount,textDisplay } = comment.snippet.topLevelComment.snippet;
+                            return(
+                                <Card key={ index } className={ classes.card }>
+                                    <div>
+                                        <CardMedia
+                                            className={ classes.authorImage }
+                                            image={ authorImage } />
+                                    </div>
+                                    <div>
+                                        <CardContent>
+                                            <Typography className={ classes.authorName }>
+                                                { authorName } 
+                                            </Typography>
+                                            <Typography className={ classes.publishedAt }>
+                                                <Moment fromNow>{ publishedAt }</Moment>
+                                            </Typography>
+                                        </CardContent>
+                                        <CardContent className={ classes.commentBox}> 
+                                            <Typography className={ classes.commentText }>
+                                                { textDisplay }
+                                            </Typography>
+                                        </CardContent>
+                                        <CardContent className={ classes.commentStat }>
+                                            <ThumbUp className={ classes.likeStyle }></ThumbUp> 
+                                            <Typography className={ classes.likeCount }>
+                                                { convertNumbers(likeCount) }
+                                            </Typography>
+                                            <ThumbDown className={ classes.likeStyle }></ThumbDown>
+                                        </CardContent>
+                                    </div>
+                                </Card>
+                            )
+                        })}
+                    </div>
                 </div>
-            </div>
-        )
-        
+               
+            )
+        }
     };
 };
 

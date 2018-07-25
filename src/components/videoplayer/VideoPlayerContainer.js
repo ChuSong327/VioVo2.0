@@ -1,14 +1,11 @@
 import { connect } from "react-redux";
-import PageVideoPlayer from "./PageVideoPlayer";
+import VideoPlayer from "./VideoPlayer";
 
 import * as videoActions from "../../actions/videoActions";
 
 export const mapStateToProps = state => {
     return {
         currentVideo: state.currentVideoReducer.currentVideo,
-        commentList: state.commentListReducer.commentList,
-        nextPageToken: state.commentListReducer.nextPageToken,
-        relatedVideos: state.relatedVideosReducer.relatedVideos
     }
 };
 
@@ -29,4 +26,4 @@ export const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageVideoPlayer);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoPlayer);

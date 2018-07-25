@@ -18,7 +18,9 @@ export const fetchYoutube = (keyword) => {
     };
     return axios.get(url, { params })
             .then(res => { 
-                return res.data;
+                let data = res.data;
+                let searchKeyword = res.config.params.q
+                return [data, searchKeyword];
             });
 };
 

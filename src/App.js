@@ -5,6 +5,7 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import PageHomepageContainer from "./components/page-homepage/PageHomepageContainer";
 import PageSearchResultContainer from "./components/page-searchresult/PageSearchResultContainer";
 import PageVideoPlayerContainer from "./components/page-videoplayer/PageVideoPlayerContainer";
+
 const theme = createMuiTheme({
   palette: {
     primary: {

@@ -1,19 +1,20 @@
 import { connect } from "react-redux";
-import PageVideoPlayer from "./PageVideoPlayer";
-
+import SearchList from "./SearchList";
 import * as videoActions from "../../actions/videoActions";
 
 export const mapStateToProps = state => {
     return {
-        currentVideo: state.currentVideoReducer.currentVideo,
-        commentList: state.commentListReducer.commentList,
-        nextPageToken: state.commentListReducer.nextPageToken,
-        relatedVideos: state.relatedVideosReducer.relatedVideos
+        searchResult: state.searchResultReducer.searchResult,
+        searchKeyword: state.searchResultReducer.searchKeyword,
+        nextPageToken: state.searchResultReducer.nextPageToken
     }
 };
 
 export const mapDispatchToProps = dispatch => {
     return {
+        fetchYoutube: keyword => {
+            return dispatch(videoActions.fetchYoutube(keyword));
+        },
         getVideoInfo: videoId => {
             return dispatch(videoActions.getVideoInfo(videoId));
         },
@@ -23,10 +24,7 @@ export const mapDispatchToProps = dispatch => {
         getRelatedVideo: videoId => {
             return dispatch(videoActions.getRelatedVideo(videoId));
         },
-        fetchYoutube: keyword => {
-            return dispatch(videoActions.fetchYoutube(keyword));
-        }
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageVideoPlayer);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchList);

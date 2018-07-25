@@ -1,21 +1,21 @@
 import { connect } from "react-redux";
-import PageSearchResult from "./PageSearchResult"; 
+import Navbar from "./Navbar";
+import { withRouter } from "react-router";
 import * as videoActions from "../../actions/videoActions";
 
 export const mapStateToProps = state => {
     return {
         searchResult: state.searchResultReducer.searchResult,
         searchKeyword: state.searchResultReducer.searchKeyword,
-        nextPageToken: state.searchResultReducer.nextPageToken
     }
 };
 
 export const mapDispatchToProps = dispatch => {
     return {
-        fetchYoutube: keyword => {
-            return dispatch(videoActions.fetchYoutube(keyword));
+        fetchYoutube: (keyword, pageToken) => {
+            return dispatch(videoActions.fetchYoutube(keyword, pageToken));
         }
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageSearchResult);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));

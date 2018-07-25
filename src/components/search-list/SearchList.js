@@ -27,7 +27,8 @@ const styles = theme => ({
         alignItems: "flex-start",
         "&:hover": {
             cursor: "pointer",
-            boxShadow: "1px 2px 3px #ddd"
+            boxShadow: "1px 2px 3px #ddd",
+            transform:"translateY(-1px)"
         },
         boxShadow: "none"
     },
@@ -71,17 +72,14 @@ class Search extends Component {
 
     handleVideoClick(event){
         const videoId = event.currentTarget.id;
-        localStorage.setItem("videoId", videoId);
+        this.props.getVideoInfo(videoId);
     };
 
     render(){
-        const { classes } = this.props;
-        const { searchResult } = this.props.state;
-
+        const { classes, searchResult } = this.props;
         return(
             <div className={ classes.root } id="Search">
                 {searchResult.map((video, index) => {
-                    console.log(video.snippet)
                     const { url } = video.snippet.thumbnails.medium;
                     const { title } = video.snippet;
                     const { channelTitle } = video.snippet;
@@ -89,46 +87,44 @@ class Search extends Component {
                     const { publishedAt } = video.snippet;
                     const { videoId } = video.id;
                     return(
-                        <Link
+                        <Card
                             key={ index }  
+                            className={ classes.card }
+                            id={ videoId }
+                            component={ Link }
                             to={`/currentplaying/${videoId}`}
-                            style={{textDecoration: "none"}}>
-                            <Card 
-                                className={ classes.card }
-                                id={ videoId } 
-                                onClick={ this.handleVideoClick} 
-                                >
-                                <CardMedia 
-                                    className={ classes.media }
-                                    image={ url }
-                                    title={ title }
-                                    />
-                                <div>
-                                    <CardContent className={ classes.cardContent }>
-                                        <Typography 
-                                            className={ classes.videoTitle } 
-                                            component="h1">
-                                                { title }
-                                        </Typography>
-                                        <Typography 
-                                            className={ classes.videoInfo } 
-                                            component="h1" 
-                                            style={{ marginBottom: 2}}>
-                                                {channelTitle} 
-                                                <span classes="dot" className={ classes.dot }></span> 
-                                                <Moment fromNow>{ publishedAt }</Moment>
-                                        </Typography>
-                                    </CardContent>
-                                    <CardContent className={ classes.cardContent }>
-                                        <Typography 
-                                            className={ classes.videoInfo } 
-                                            component="p">
-                                                { description }
-                                        </Typography>
-                                    </CardContent>
-                                </div>
-                            </Card>
-                        </Link>
+                            style={{textDecoration: "none"}}
+                            onClick={ this.handleVideoClick} >
+                            <CardMedia 
+                                className={ classes.media }
+                                image={ url }
+                                title={ title }
+                            />
+                            <div>
+                                <CardContent className={ classes.cardContent }>
+                                    <Typography 
+                                        className={ classes.videoTitle } 
+                                        component="h1">
+                                        { title }
+                                    </Typography>
+                                    <Typography 
+                                        className={ classes.videoInfo } 
+                                        component="h1" 
+                                        style={{ marginBottom: 2}}>
+                                        {channelTitle} 
+                                        <span classes="dot" className={ classes.dot }></span> 
+                                        <Moment fromNow>{ publishedAt }</Moment>
+                                    </Typography>
+                                </CardContent>
+                                <CardContent className={ classes.cardContent }>
+                                    <Typography 
+                                        className={ classes.videoInfo } 
+                                        component="p">
+                                        { description }
+                                    </Typography>
+                                </CardContent>
+                            </div>
+                        </Card>
                     )
                 })}
             </div>

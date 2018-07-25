@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { 
-        CardContent,
-        Typography,
-       
+    CardContent,
+    Typography,
+    LinearProgress,    
 } from "@material-ui/core";
 import {
     ThumbUp,
@@ -71,48 +71,30 @@ const styles = theme => ({
 });
 
 class VideoPlayer extends Component {
-    constructor(props){
-        super(props);
-        this.handleVideoClick = this.handleVideoClick.bind(this);
-        this.handleCommentScroll = this.handleCommentScroll.bind(this);
-    };
-
-    handleVideoClick(event){
-        const videoId = event.currentTarget.id;
-        localStorage.setItem("videoId", videoId);
-    };
-
-    handleCommentScroll(event){
-        event.preventDefault();
-        const videoId = localStorage.videoId;
-        const nextPageToken = this.props.state.nextPageToken;
-        const commentClientHeight = window.document.getElementById("VideoPlayer").clientHeight;
-        const commentScrollTop = window.document.getElementById("VideoPlayer").scrollTop;
-        const commentScrollHeight = window.document.getElementById("VideoPlayer").scrollHeight;
-
-        if (commentClientHeight + commentScrollTop === commentScrollHeight) {
-            this.props.state.fetchVideoComment(videoId, nextPageToken);
-        }
-    };
-
     render(){
-        const { classes } = this.props;
-        const url = "https://www.youtube.com/embed/" + localStorage.videoId;
-        const { title } = this.props.state.currentVideo[0].snippet;
-        const { viewCount,
+        const { classes, currentVideo } = this.props;
+        if(currentVideo.length === 0){
+            return(
+                <div>
+                   <LinearProgress/>
+                </div>
+            )
+        } 
+        else if(currentVideo) {
+            const { title } = currentVideo[0].snippet;
+            const { 
+                viewCount,
                 likeCount,
                 dislikeCount,
-            } = this.props.state.currentVideo[0].statistics;
-
-        return(
-            <div 
-                className={ classes.root } 
-                id="VideoPlayer" 
-                onScroll={ this.handleCommentScroll }>
+            } = currentVideo[0].statistics;
+            return(
+                <div 
+                    className={ classes.root } 
+                    id="VideoPlayer">
                 <div>
                     <iframe 
                         className={ classes.media }
-                        src={ url } 
+                        src={`https://www.youtube.com/embed/${currentVideo[0].id}`} 
                         allow="autoplay; encrypted-media" 
                         frameBorder="0"
                         allowFullScreen
@@ -153,7 +135,8 @@ class VideoPlayer extends Component {
                         borderBottomWidth: 0.1 }}
                 />
             </div>
-        )
+            )
+        }
         
     }
 };
