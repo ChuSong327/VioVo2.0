@@ -5,6 +5,9 @@ A Single Page Application that streams real-time most popular trending videos on
 
 [Live](https://viovo.herokuapp.com/)
 
+### App Preview
+#### Homepage
+ <img src="https://github.com/ChuSong327/VioVo2.0/blob/master/Docs/HomePage.png" align="center" width="600" overflow="hidden">
 
 ### Installing
 ```javascript
