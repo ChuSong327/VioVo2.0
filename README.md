@@ -3,7 +3,7 @@
 
 A Single Page Application that streams real-time most popular trending videos on YouTube and enables users to search and play selected videos.
 
-[Live](http://viovo.herokuapp.com/)
+[Live](https://viovo.herokuapp.com/)
 
 
 ### Installing
