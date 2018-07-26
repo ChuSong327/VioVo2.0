@@ -9,6 +9,12 @@ A Single Page Application that streams real-time most popular trending videos on
 #### Homepage
  <img src="https://github.com/ChuSong327/VioVo2.0/blob/master/Docs/HomePage.png" align="center" width="600" overflow="hidden">
 
+ #### Search Result Page
+  <img src="https://github.com/ChuSong327/VioVo2.0/blob/master/Docs/SearchResultPage.png" align="center" width="600" overflow="hidden">
+
+#### Video Player Page
+  <img src="https://github.com/ChuSong327/VioVo2.0/blob/master/Docs/VideoPlayerPage.png" align="center" width="600" overflow="hidden">
+
 ### Installing
 ```javascript
 yarn install
@@ -26,6 +32,7 @@ The app is deployed to Heroku.
 * Redux
 * Axios
 * Material UI
+
 
 #### Notice
 API key is hidden.
